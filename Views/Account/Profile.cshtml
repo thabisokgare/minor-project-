@@ -1,0 +1,27 @@
+@model ABCRetail.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<section class="section-shell">
+    <div class="card border-0 shadow-sm p-4">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h2 class="fw-semibold">Profile overview</h2>
+                <p class="text-muted mb-4">Manage your personal information and security details.</p>
+            </div>
+            <form asp-action="Logout" method="post">
+                <button class="btn btn-outline-dark" type="submit">Sign out</button>
+            </form>
+        </div>
+        <dl class="row">
+            <dt class="col-sm-3">Display name</dt>
+            <dd class="col-sm-9">@Model.DisplayName</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Created</dt>
+            <dd class="col-sm-9">@Model.CreatedAt.ToLocalTime().ToString("f")</dd>
+        </dl>
+    </div>
+</section>

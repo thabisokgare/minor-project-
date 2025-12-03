@@ -1,0 +1,31 @@
+@model IDictionary<string, int>
+
+@{
+    ViewData["Title"] = "Queue monitor";
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Admin</span>
+    <h2 class="fw-semibold">Azure queue metrics</h2>
+    <p class="text-muted">Track backlog across processing channels.</p>
+
+    @if (ViewBag.AzureUnavailable == true)
+    {
+        <div class="alert alert-warning mt-3">Cloud storage is not configured. Queue metrics are unavailable.</div>
+    }
+    else
+    {
+        <div class="row g-4 mt-1">
+            @foreach (var metric in Model)
+            {
+                <div class="col-12 col-md-4">
+                    <div class="card border-0 shadow-sm p-4">
+                        <span class="text-uppercase small text-muted">@metric.Key</span>
+                        <h3 class="display-6">@metric.Value</h3>
+                        <p class="text-muted mb-0">Approximate queued messages</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

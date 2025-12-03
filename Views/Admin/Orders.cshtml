@@ -1,0 +1,40 @@
+@model IEnumerable<ABCRetail.Models.Order>
+
+@{
+    ViewData["Title"] = "Admin - Orders";
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Admin</span>
+    <h2 class="fw-semibold">Orders dashboard</h2>
+
+    <div class="table-responsive mt-4">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th class="text-end">Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>#@order.Id</td>
+                        <td>@order.User?.DisplayName (@order.User?.Email)</td>
+                        <td><span class="badge bg-dark-subtle text-dark">@order.Status</span></td>
+                        <td>@order.CreatedAt.ToLocalTime().ToString("g")</td>
+                        <td class="text-end">R@order.Total</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-dark btn-sm" asp-action="OrderDetails" asp-route-id="@order.Id">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

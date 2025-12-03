@@ -1,0 +1,38 @@
+@model ABCRetail.Models.Order
+
+@{
+    ViewData["Title"] = "Order confirmation";
+}
+
+<section class="section-shell">
+    <div class="card border-0 shadow-sm p-4">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <span class="eyebrow">Confirmation</span>
+                <h2 class="fw-semibold">Order #@Model.Id confirmed</h2>
+                <p class="text-muted">We will send updates to your email as we prepare and ship your order.</p>
+            </div>
+            <a class="btn btn-dark" asp-action="MyOrders">View order history</a>
+        </div>
+
+        <div class="mt-4">
+            <h5>Order summary</h5>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Items)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div>
+                            <div class="fw-semibold">@item.Product?.Name</div>
+                            <div class="text-muted small">Quantity: @item.Quantity</div>
+                        </div>
+                        <span>R@(item.UnitPrice * item.Quantity)</span>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between fw-semibold">
+                    <span>Total</span>
+                    <span>R@Model.Total</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

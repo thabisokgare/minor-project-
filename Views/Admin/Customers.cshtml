@@ -1,0 +1,43 @@
+@model IEnumerable<ABCRetail.Models.CustomerEntity>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Admin</span>
+    <h2 class="fw-semibold">Customers directory</h2>
+
+    @if (ViewBag.AzureUnavailable == true)
+    {
+        <div class="alert alert-warning mt-4">Cloud storage is not configured. Customer records from Table Storage are unavailable.</div>
+    }
+    else if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">No customers found in Table Storage yet.</div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Identity ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <td>@customer.DisplayName</td>
+                            <td>@customer.Email</td>
+                            <td><code>@customer.IdentityUserId</code></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

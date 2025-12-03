@@ -1,0 +1,128 @@
+﻿@model IEnumerable<ABCRetail.Models.Product>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <div class="hero__background"></div>
+    <div class="shell">
+        <div class="hero__layout">
+            <div class="hero__content">
+                <span class="eyebrow">Holiday Edit &middot; 2025</span>
+                <h1>Elevate everyday essentials for the modern wardrobe.</h1>
+                <p class="lead">Discover curated looks, future-forward fabrics, and sustainably crafted staples built to move with you.</p>
+                <div class="hero__cta">
+                    <a class="btn btn-primary btn-lg" href="#featured">Shop the collection</a>
+                    <a class="btn btn-outline-dark btn-lg" href="#lookbook">Explore the lookbook</a>
+                </div>
+                <div class="hero__stats">
+                    <div>
+                        <span class="metric">@Model.Count()</span>
+                        <span class="label">Featured arrivals</span>
+                    </div>
+                    <div>
+                        <span class="metric">48 H</span>
+                        <span class="label">Fast delivery</span>
+                    </div>
+                    <div>
+                        <span class="metric">4.9&#9733;</span>
+                        <span class="label">Customer reviews</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__media" role="presentation">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80" alt="Minimalist fashion editorial" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-shell" id="lookbook">
+    <div class="section-heading">
+        <span class="eyebrow">Shop by category</span>
+        <h2>Iconic silhouettes, updated weekly.</h2>
+        <p>Timeless neutrals, elevated athleisure, and statement layers designed to mix, match, and move with you.</p>
+    </div>
+    <div class="category-grid">
+        <article class="category-card">
+            <div class="category-card__body">
+                <h3>Tailored Soft Suits</h3>
+                <p>Relaxed structure meets immaculate draping in our signature wool-blend suiting.</p>
+                <a class="stretched-link" href="/catalog/suiting">Shop suiting</a>
+            </div>
+        </article>
+        <article class="category-card">
+            <div class="category-card__body">
+                <h3>Everyday Essentials</h3>
+                <p>Build a capsule wardrobe with breathable knits and precision-cut basics.</p>
+                <a class="stretched-link" href="/catalog/essentials">View essentials</a>
+            </div>
+        </article>
+        <article class="category-card">
+            <div class="category-card__body">
+                <h3>Performance Outerwear</h3>
+                <p>Weatherproof layers engineered with recycled fibers and adaptive thermal comfort.</p>
+                <a class="stretched-link" href="/catalog/outerwear">Explore outerwear</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section-shell" id="featured">
+    <div class="section-heading">
+        <span class="eyebrow">Featured drops</span>
+        <h2>Trending now on ABC Retail</h2>
+    </div>
+    <div class="product-grid">
+        @foreach (var product in Model)
+        {
+            <article class="product-card">
+                <div class="product-card__tag">New</div>
+                <img src="@product.ImageUrl" alt="@product.Name" />
+                <div class="product-card__body">
+                    <h3>@product.Name</h3>
+                    <p>@product.Description</p>
+                    <div class="product-card__meta">
+                        <span class="price">R@product.Price</span>
+                        <a class="btn btn-dark btn-sm" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+<section class="feature-banner" id="sustainability">
+    <div class="shell feature-banner__layout">
+        <div class="feature-banner__copy">
+            <span class="eyebrow">Carbon-conscious shipping</span>
+            <h2>We neutralise every delivery.</h2>
+            <p>From warehouse to wardrobe, our logistics partners offset 100% of carbon emissions, so you can shop smarter.</p>
+            <ul>
+                <li>Tracked delivery in 48 hours</li>
+                <li>Eco packaging that is fully recyclable</li>
+                <li>Complimentary returns within 30 days</li>
+            </ul>
+            <a class="btn btn-outline-dark" href="/sustainability">Learn more</a>
+        </div>
+        <div class="feature-banner__visual" role="presentation"></div>
+    </div>
+</section>
+
+<section class="newsletter">
+    <div class="shell newsletter__layout">
+        <div class="newsletter__copy">
+            <span class="eyebrow">Stay in the loop</span>
+            <h2>Unlock first access and early VIP drops.</h2>
+            <p>Sign up for product previews, styling stories, and limited-run collaborations delivered weekly.</p>
+        </div>
+        <form class="newsletter__form" method="post" action="#">
+            <div class="input-group input-group-lg">
+                <input class="form-control" type="email" placeholder="Enter your email" aria-label="Email address" required />
+                <button class="btn btn-dark" type="submit">Join</button>
+            </div>
+            <small>We respect your privacy and never share your details.</small>
+        </form>
+    </div>
+</section>

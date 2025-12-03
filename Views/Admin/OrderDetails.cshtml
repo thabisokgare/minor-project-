@@ -1,0 +1,57 @@
+@model ABCRetail.Models.Order
+
+@{
+    ViewData["Title"] = "Order details";
+    var statuses = new[] { "Pending", "Processing", "Shipped", "Completed", "Cancelled" };
+}
+
+<section class="section-shell">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h2 class="fw-semibold">Order #@Model.Id</h2>
+            <p class="text-muted">Placed on @Model.CreatedAt.ToLocalTime().ToString("f") by @Model.User?.DisplayName.</p>
+        </div>
+        <a class="btn btn-outline-dark" asp-action="Orders">Back to orders</a>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="fw-semibold">Items</h5>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Items)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@item.Product?.Name</span>
+                        <span>@item.Quantity x R@item.UnitPrice</span>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between fw-semibold">
+                    <span>Total</span>
+                    <span>R@Model.Total</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="fw-semibold">Update status</h5>
+            <form asp-action="UpdateStatus" method="post" class="row g-3 align-items-center">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="col-auto">
+                    <label class="form-label" for="status">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        @foreach (var status in statuses)
+                        {
+                            <option value="@status" selected="@(status == Model.Status ? "selected" : null)">@status</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-auto mt-4">
+                    <button class="btn btn-dark" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

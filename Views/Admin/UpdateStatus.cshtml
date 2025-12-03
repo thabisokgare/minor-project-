@@ -1,0 +1,27 @@
+@model ABCRetail.Models.Order
+
+@{
+    ViewData["Title"] = "Update order status";
+    var statuses = new[] { "Pending", "Processing", "Shipped", "Completed", "Cancelled" };
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Admin</span>
+    <h2 class="fw-semibold">Update order #@Model.Id</h2>
+    <p class="text-muted">Adjust the tracking state for this order.</p>
+
+    <form asp-action="UpdateStatus" method="post" class="mt-4">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="mb-3" style="max-width: 320px;">
+            <label class="form-label" for="status">Status</label>
+            <select id="status" name="status" class="form-select form-select-lg">
+                @foreach (var status in statuses)
+                {
+                    <option value="@status" selected="@(status == Model.Status ? "selected" : null)">@status</option>
+                }
+            </select>
+        </div>
+        <button class="btn btn-dark" type="submit">Save status</button>
+        <a class="btn btn-outline-dark ms-2" asp-action="OrderDetails" asp-route-id="@Model.Id">Cancel</a>
+    </form>
+</section>

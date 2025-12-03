@@ -1,0 +1,27 @@
+@model ABCRetail.Models.CartItem
+
+@{
+    ViewData["Title"] = "Remove item";
+}
+
+<section class="section-shell">
+    <div class="card border-0 shadow-sm p-4">
+        <h2 class="fw-semibold">Remove item</h2>
+        <p class="text-muted">Are you sure you want to remove this item from your cart?</p>
+
+        <div class="d-flex gap-3 align-items-center mb-4">
+            <img src="@Model.Product?.ImageUrl" alt="@Model.Product?.Name" class="rounded" style="width: 120px; height: 120px; object-fit: cover;" />
+            <div>
+                <h5 class="mb-1">@Model.Product?.Name</h5>
+                <p class="text-muted mb-0">@Model.Product?.Description</p>
+                <span class="fw-semibold">R@Model.Product?.Price</span>
+            </div>
+        </div>
+
+        <form asp-action="Remove" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button class="btn btn-danger" type="submit">Yes, remove</button>
+            <a asp-action="Index" class="btn btn-outline-dark ms-2">Cancel</a>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+@model ABCRetail.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="section-shell">
+    <div class="row g-5 align-items-center">
+        <div class="col-12 col-lg-6">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid object-fit-cover" />
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <span class="eyebrow">Premium drop</span>
+            <h2 class="fw-semibold">@Model.Name</h2>
+            <p class="text-muted fs-5">@Model.Description</p>
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <span class="fs-3 fw-semibold">R@Model.Price</span>
+                <span class="badge bg-dark-subtle text-dark">Ships in 48h</span>
+            </div>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-flex gap-3 align-items-center">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <label class="form-label m-0" for="quantity">Qty</label>
+                <input id="quantity" name="quantity" type="number" value="1" min="1" class="form-control" style="max-width: 90px;" />
+                <button type="submit" class="btn btn-dark btn-lg">Add to cart</button>
+            </form>
+        </div>
+    </div>
+</section>

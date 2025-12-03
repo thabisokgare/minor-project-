@@ -1,0 +1,67 @@
+@model IEnumerable<ABCRetail.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Your cart";
+}
+
+<section class="section-shell">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <span class="eyebrow">Cart</span>
+            <h2 class="fw-semibold mb-0">Review your items</h2>
+        </div>
+        <a class="btn btn-dark" asp-controller="Orders" asp-action="Checkout">Proceed to checkout</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">Your cart is currently empty.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-end">Unit price</th>
+                        <th class="text-end">Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="@item.Product?.ImageUrl" alt="@item.Product?.Name" class="rounded" style="width: 72px; height: 72px; object-fit: cover;" />
+                                    <div>
+                                        <div class="fw-semibold">@item.Product?.Name</div>
+                                        <div class="text-muted small">@item.Product?.Description</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <form asp-action="Update" method="post" class="d-flex align-items-center gap-2">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input name="quantity" type="number" value="@item.Quantity" min="1" class="form-control" style="max-width: 80px;" />
+                                    <button class="btn btn-outline-dark btn-sm" type="submit">Update</button>
+                                </form>
+                            </td>
+                            <td class="text-end">R@item.Product?.Price</td>
+                            <td class="text-end">R@(item.Quantity * (item.Product?.Price ?? 0M))</td>
+                            <td class="text-end">
+                                <form asp-action="Remove" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button class="btn btn-link text-danger" type="submit">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

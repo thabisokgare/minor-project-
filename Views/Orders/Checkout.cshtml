@@ -1,0 +1,67 @@
+@model IEnumerable<ABCRetail.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Checkout";
+    var total = Model.Sum(i => (i.Product?.Price ?? 0M) * i.Quantity);
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Checkout</span>
+    <h2 class="fw-semibold">Review and confirm your order</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">Your cart is empty. Add products before checking out.</div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-end">Qty</th>
+                        <th class="text-end">Price</th>
+                        <th class="text-end">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="@item.Product?.ImageUrl" alt="@item.Product?.Name" class="rounded" style="width: 72px; height: 72px; object-fit: cover;" />
+                                    <div>
+                                        <div class="fw-semibold">@item.Product?.Name</div>
+                                        <div class="text-muted small">@item.Product?.Description</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end">@item.Quantity</td>
+                            <td class="text-end">R@item.Product?.Price</td>
+                            <td class="text-end">R@(item.Quantity * (item.Product?.Price ?? 0M))</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-end">Total</th>
+                        <th class="text-end">R@total</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <form asp-action="PlaceOrder" method="post" class="mt-4">
+            <div class="mb-3">
+                <label class="form-label" for="notes">Delivery notes (optional)</label>
+                <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Leave instructions for the courier"></textarea>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-dark btn-lg" type="submit">Place order</button>
+                <a class="btn btn-outline-dark btn-lg" asp-controller="Cart" asp-action="Index">Back to cart</a>
+            </div>
+        </form>
+    }
+</section>

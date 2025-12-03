@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ABCRetail</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ABCRetail.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="modern-header">
+        <nav class="navbar navbar-expand-lg navbar-light modern-nav" aria-label="Primary navigation">
+            <div class="shell nav-shell">
+                <div class="brand-group">
+                    <a class="navbar-brand brand-mark" asp-area="" asp-controller="Home" asp-action="Index">
+                        ABCRetail
+                        <span class="brand-spark"></span>
+                    </a>
+                    <span class="brand-tagline">Elevated essentials. Made modern.</span>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="primaryNav">
+                    <ul class="navbar-nav main-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#featured">New Arrivals <span class="nav-badge">Hot</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#lookbook">Lookbook</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sustainability">Sustainability</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Support</a>
+                        </li>
+                    </ul>
+                    <div class="nav-utility">
+                        <form class="nav-search" role="search" method="get" action="#">
+                            <label class="visually-hidden" for="nav-search">Search store</label>
+                            <input id="nav-search" name="q" type="search" placeholder="Search essentials" />
+                            <button type="submit" aria-label="Submit search">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.71.71l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z" />
+                                </svg>
+                            </button>
+                        </form>
+                        <div class="nav-actions">
+                            <a class="nav-icon" href="#" aria-label="Account">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" />
+                                </svg>
+                            </a>
+                            <a class="nav-icon" href="#featured" aria-label="Shopping bag">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M7 7V6a5 5 0 0110 0v1h4v15H3V7h4zm2-1a3 3 0 016 0v1H9V6zm10 3H5v11h14V9z" />
+                                </svg>
+                                <span class="nav-dot" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-wrapper">
+        <main role="main" class="main-content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="footer-shell">
+            &copy; 2025 - ABCRetail - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

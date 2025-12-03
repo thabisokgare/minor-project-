@@ -1,0 +1,31 @@
+@model IEnumerable<string>
+
+@{
+    ViewData["Title"] = "Customer contracts";
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Admin</span>
+    <h2 class="fw-semibold">Contracts file share</h2>
+
+    @if (ViewBag.AzureUnavailable == true)
+    {
+        <div class="alert alert-warning mt-4">Cloud storage is not configured. Contracts stored in Azure Files are currently unavailable.</div>
+    }
+    else if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">No contracts uploaded yet.</div>
+    }
+    else
+    {
+        <ul class="list-group mt-4">
+            @foreach (var file in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>@file</span>
+                    <span class="text-muted small">Stored in Azure Files</span>
+                </li>
+            }
+        </ul>
+    }
+</section>

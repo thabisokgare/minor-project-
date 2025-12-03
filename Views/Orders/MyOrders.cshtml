@@ -1,0 +1,43 @@
+@model IEnumerable<ABCRetail.Models.Order>
+
+@{
+    ViewData["Title"] = "My orders";
+}
+
+<section class="section-shell">
+    <span class="eyebrow">Orders</span>
+    <h2 class="fw-semibold">Order history</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">You have not placed any orders yet.</div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="Confirmation" asp-route-orderId="@order.Id">#@order.Id</a>
+                            </td>
+                            <td>@order.CreatedAt.ToLocalTime().ToString("f")</td>
+                            <td><span class="badge bg-dark-subtle text-dark">@order.Status</span></td>
+                            <td class="text-end">R@order.Total</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

@@ -1,0 +1,32 @@
+@model ABCRetail.Models.CartItem
+
+@{
+    ViewData["Title"] = "Update cart item";
+}
+
+<section class="section-shell">
+    <div class="card border-0 shadow-sm p-4">
+        <h2 class="fw-semibold">Update quantity</h2>
+        <p class="text-muted">Adjust how many units you would like to keep.</p>
+
+        <form asp-action="Update" method="post" class="d-flex flex-column gap-3">
+            <div class="d-flex gap-3 align-items-center">
+                <img src="@Model.Product?.ImageUrl" alt="@Model.Product?.Name" class="rounded" style="width: 120px; height: 120px; object-fit: cover;" />
+                <div>
+                    <h5 class="mb-1">@Model.Product?.Name</h5>
+                    <p class="text-muted mb-0">@Model.Product?.Description</p>
+                    <span class="fw-semibold">R@Model.Product?.Price</span>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="mb-3" style="max-width: 120px;">
+                <label class="form-label" for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" type="number" value="@Model.Quantity" min="1" class="form-control" />
+            </div>
+            <div>
+                <button class="btn btn-dark" type="submit">Save</button>
+                <a asp-action="Index" class="btn btn-outline-dark ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
